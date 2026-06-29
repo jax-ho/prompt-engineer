@@ -6,7 +6,7 @@ Use it to turn rough task descriptions or existing prompts into clearer system p
 
 ## Install
 
-After this repository is published to GitHub, install it with the `skills` CLI:
+Install it with the `skills` CLI:
 
 ```bash
 npx skills add jax-ho/prompt-engineer -g -a codex -y
@@ -38,11 +38,11 @@ Install the local working tree into Codex:
 npx skills add . -g -a codex -y
 ```
 
-Manual install also works because the repo root is the installable skill root:
+Manual install also works by copying the skill folder:
 
 ```bash
 mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-cp -R . "${CODEX_HOME:-$HOME/.codex}/skills/prompt-engineer"
+cp -R skills/prompt-engineer "${CODEX_HOME:-$HOME/.codex}/skills/prompt-engineer"
 ```
 
 ## Usage
@@ -76,16 +76,18 @@ This split keeps ordinary prompt optimization simple while still supporting agen
 
 ```text
 .
-├── SKILL.md
-├── references/
-│   ├── prompt-optimizer-meta-prompt.md
-│   ├── agent-prompt-optimizer-meta-prompt.md
-│   └── quality-checklist.md
-├── examples/
-│   └── requests.md
-└── tests/
-    ├── cases.json
-    └── test_skill_contract.py
+└── skills/
+    └── prompt-engineer/
+        ├── SKILL.md
+        ├── references/
+        │   ├── prompt-optimizer-meta-prompt.md
+        │   ├── agent-prompt-optimizer-meta-prompt.md
+        │   └── quality-checklist.md
+        ├── examples/
+        │   └── requests.md
+        └── tests/
+            ├── cases.json
+            └── test_skill_contract.py
 ```
 
 ## Testing
@@ -93,7 +95,7 @@ This split keeps ordinary prompt optimization simple while still supporting agen
 Run the local contract tests:
 
 ```bash
-python3 tests/test_skill_contract.py
+python3 skills/prompt-engineer/tests/test_skill_contract.py
 ```
 
 The tests verify:

@@ -9,14 +9,15 @@ import sys
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
-SKILL = ROOT / "SKILL.md"
-README = ROOT / "README.md"
-ORDINARY = ROOT / "references" / "prompt-optimizer-meta-prompt.md"
-AGENT = ROOT / "references" / "agent-prompt-optimizer-meta-prompt.md"
-CHECKLIST = ROOT / "references" / "quality-checklist.md"
-EXAMPLES = ROOT / "examples" / "requests.md"
-CASES = ROOT / "tests" / "cases.json"
+SKILL_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = SKILL_ROOT.parents[1]
+SKILL = SKILL_ROOT / "SKILL.md"
+README = REPO_ROOT / "README.md"
+ORDINARY = SKILL_ROOT / "references" / "prompt-optimizer-meta-prompt.md"
+AGENT = SKILL_ROOT / "references" / "agent-prompt-optimizer-meta-prompt.md"
+CHECKLIST = SKILL_ROOT / "references" / "quality-checklist.md"
+EXAMPLES = SKILL_ROOT / "examples" / "requests.md"
+CASES = SKILL_ROOT / "tests" / "cases.json"
 
 AGENT_ROUTE_TERMS = [
     "agent",
@@ -88,8 +89,8 @@ def routed_by_test_oracle(request: str) -> str:
 
 
 def test_required_files_exist() -> None:
-    for path in [SKILL, README, ORDINARY, AGENT, CHECKLIST, EXAMPLES, CASES]:
-        assert_true(path.exists(), f"Missing required file: {path.relative_to(ROOT)}")
+    for path in [SKILL, ORDINARY, AGENT, CHECKLIST, EXAMPLES, CASES]:
+        assert_true(path.exists(), f"Missing required file: {path}")
 
 
 def test_skill_frontmatter() -> None:
@@ -109,13 +110,13 @@ def test_reference_links_exist() -> None:
         "examples/requests.md",
     ]:
         assert_true(rel in text, f"SKILL.md should reference {rel}")
-        assert_true((ROOT / rel).exists(), f"Referenced path does not exist: {rel}")
+        assert_true((SKILL_ROOT / rel).exists(), f"Referenced path does not exist: {rel}")
 
 
 def test_markdown_fences_are_balanced() -> None:
     for path in [ORDINARY, AGENT]:
         fences = fence_lines(read(path))
-        assert_true(len(fences) == 2, f"{path.relative_to(ROOT)} should have exactly one fenced meta prompt")
+        assert_true(len(fences) == 2, f"{path.relative_to(SKILL_ROOT)} should have exactly one fenced meta prompt")
 
 
 def test_default_and_agent_prompts_are_separated() -> None:
@@ -143,13 +144,16 @@ def test_commentary_rule_is_scoped_to_completed_prompt_delivery() -> None:
         text = read(path)
         assert_true(
             "When the requested deliverable is the completed prompt itself" in text,
-            f"{path.relative_to(ROOT)} must scope no-commentary rule to completed prompt delivery",
+            f"{path.relative_to(SKILL_ROOT)} must scope no-commentary rule to completed prompt delivery",
         )
 
 
 def test_readme_installation_boundary() -> None:
+    if not README.exists():
+        print("SKIP README boundary check outside source repo")
+        return
     text = read(README)
-    assert_true("repo root is the installable skill root" in text, "README should state install root")
+    assert_true("skills/prompt-engineer" in text, "README should state the installable skill folder")
     assert_true(
         "${CODEX_HOME:-$HOME/.codex}/skills/prompt-engineer" in text,
         "README should include local install path",
