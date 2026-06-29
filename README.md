@@ -9,19 +9,25 @@ Use it to turn rough task descriptions or existing prompts into clearer system p
 Install it with the `skills` CLI:
 
 ```bash
+npx skills add https://github.com/jax-ho/prompt-engineer --skill prompt-engineer
+```
+
+The shorter GitHub shorthand also works:
+
+```bash
 npx skills add jax-ho/prompt-engineer
 ```
 
 To inspect the available skill before installing:
 
 ```bash
-npx skills add jax-ho/prompt-engineer --list
+npx skills add https://github.com/jax-ho/prompt-engineer --skill prompt-engineer --list
 ```
 
 To try the skill without installing it permanently:
 
 ```bash
-npx skills use jax-ho/prompt-engineer
+npx skills use https://github.com/jax-ho/prompt-engineer --skill prompt-engineer
 ```
 
 ## Local Development
@@ -29,13 +35,13 @@ npx skills use jax-ho/prompt-engineer
 From a local clone, list the detected skills:
 
 ```bash
-npx skills add . --list
+npx skills add . --skill prompt-engineer --list
 ```
 
 Install the local working tree:
 
 ```bash
-npx skills add .
+npx skills add . --skill prompt-engineer
 ```
 
 If you specifically want a manual Codex install, copy the skill folder:
