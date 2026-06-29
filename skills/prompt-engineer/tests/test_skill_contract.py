@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Contract tests for the prompt-engineer Codex skill."""
+"""Contract tests for the prompt-engineer skill."""
 
 from __future__ import annotations
 

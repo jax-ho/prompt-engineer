@@ -1,6 +1,6 @@
 # Prompt Engineer
 
-A Codex skill for designing, reviewing, and refining prompts.
+An agent skill for designing, reviewing, and refining prompts.
 
 Use it to turn rough task descriptions or existing prompts into clearer system prompts, conservative prompt rewrites, prompt-optimizer meta prompts, or explicit agent/tool-use prompt variants.
 
@@ -9,7 +9,7 @@ Use it to turn rough task descriptions or existing prompts into clearer system p
 Install it with the `skills` CLI:
 
 ```bash
-npx skills add jax-ho/prompt-engineer -g -a codex -y
+npx skills add jax-ho/prompt-engineer
 ```
 
 To inspect the available skill before installing:
@@ -32,13 +32,13 @@ From a local clone, list the detected skills:
 npx skills add . --list
 ```
 
-Install the local working tree into Codex:
+Install the local working tree:
 
 ```bash
-npx skills add . -g -a codex -y
+npx skills add .
 ```
 
-Manual install also works by copying the skill folder:
+If you specifically want a manual Codex install, copy the skill folder:
 
 ```bash
 mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
@@ -47,14 +47,14 @@ cp -R skills/prompt-engineer "${CODEX_HOME:-$HOME/.codex}/skills/prompt-engineer
 
 ## Usage
 
-In Codex, ask naturally:
+In your agent, ask naturally:
 
 ```text
 Improve this prompt conservatively:
 Summarize the following meeting notes in a useful way.
 ```
 
-Or call it explicitly:
+Or, in agents that support explicit skill invocation, call it directly:
 
 ```text
 $prompt-engineer
