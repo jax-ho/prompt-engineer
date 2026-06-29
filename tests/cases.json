@@ -1,0 +1,47 @@
+[
+  {
+    "name": "ordinary_system_prompt",
+    "request": "Turn this task into a clear system prompt for summarizing meeting notes.",
+    "expected_route": "ordinary"
+  },
+  {
+    "name": "conservative_prompt_rewrite",
+    "request": "Improve this prompt, but keep the original structure and do not over-edit it.",
+    "expected_route": "ordinary"
+  },
+  {
+    "name": "meta_prompt_creation",
+    "request": "Create a meta prompt that improves another prompt from a short task description.",
+    "expected_route": "ordinary"
+  },
+  {
+    "name": "agent_version_explicit",
+    "request": "Optimize this into an agent prompt.",
+    "expected_route": "agent"
+  },
+  {
+    "name": "react_version_explicit",
+    "request": "Make this a ReAct prompt.",
+    "expected_route": "agent"
+  },
+  {
+    "name": "tool_schema_explicit",
+    "request": "Generate a system prompt and matching function/tool schema for this task.",
+    "expected_route": "agent"
+  },
+  {
+    "name": "mcp_prompt_explicit",
+    "request": "Write an MCP tool-use prompt for browsing files and inspecting observations.",
+    "expected_route": "agent"
+  },
+  {
+    "name": "api_retrieval_explicit",
+    "request": "Optimize this prompt into an agent that can call an API and retrieve documents.",
+    "expected_route": "agent"
+  },
+  {
+    "name": "avoid_accidental_agent_route",
+    "request": "Improve this prompt for explaining what an API is to beginners.",
+    "expected_route": "ordinary"
+  }
+]
