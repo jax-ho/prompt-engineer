@@ -9,15 +9,16 @@ import sys
 from pathlib import Path
 
 
-SKILL_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = SKILL_ROOT.parents[1]
+TEST_ROOT = Path(__file__).resolve().parent
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SKILL_ROOT = REPO_ROOT / "skills" / "prompt-engineer"
 SKILL = SKILL_ROOT / "SKILL.md"
 README = REPO_ROOT / "README.md"
 ORDINARY = SKILL_ROOT / "references" / "prompt-optimizer-meta-prompt.md"
 AGENT = SKILL_ROOT / "references" / "agent-prompt-optimizer-meta-prompt.md"
 CHECKLIST = SKILL_ROOT / "references" / "quality-checklist.md"
 EXAMPLES = SKILL_ROOT / "examples" / "requests.md"
-CASES = SKILL_ROOT / "tests" / "cases.json"
+CASES = TEST_ROOT / "cases.json"
 
 AGENT_ROUTE_TERMS = [
     "agent",
@@ -91,6 +92,13 @@ def routed_by_test_oracle(request: str) -> str:
 def test_required_files_exist() -> None:
     for path in [SKILL, ORDINARY, AGENT, CHECKLIST, EXAMPLES, CASES]:
         assert_true(path.exists(), f"Missing required file: {path}")
+
+
+def test_runtime_skill_package_excludes_tests() -> None:
+    assert_true(
+        not (SKILL_ROOT / "tests").exists(),
+        "tests/ should stay outside the installable skill package",
+    )
 
 
 def test_skill_frontmatter() -> None:
@@ -174,6 +182,7 @@ def test_behavior_route_cases() -> None:
 def main() -> int:
     tests = [
         test_required_files_exist,
+        test_runtime_skill_package_excludes_tests,
         test_skill_frontmatter,
         test_reference_links_exist,
         test_markdown_fences_are_balanced,

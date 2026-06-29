@@ -82,31 +82,35 @@ This split keeps ordinary prompt optimization simple while still supporting agen
 
 ```text
 .
-└── skills/
+├── skills/
+│   └── prompt-engineer/
+│       ├── SKILL.md
+│       ├── references/
+│       │   ├── prompt-optimizer-meta-prompt.md
+│       │   ├── agent-prompt-optimizer-meta-prompt.md
+│       │   └── quality-checklist.md
+│       └── examples/
+│           └── requests.md
+└── tests/
     └── prompt-engineer/
-        ├── SKILL.md
-        ├── references/
-        │   ├── prompt-optimizer-meta-prompt.md
-        │   ├── agent-prompt-optimizer-meta-prompt.md
-        │   └── quality-checklist.md
-        ├── examples/
-        │   └── requests.md
-        └── tests/
-            ├── cases.json
-            └── test_skill_contract.py
+        ├── cases.json
+        └── test_skill_contract.py
 ```
+
+Only `skills/prompt-engineer/` is the installable skill package. Repository tests stay outside that folder.
 
 ## Testing
 
 Run the local contract tests:
 
 ```bash
-python3 skills/prompt-engineer/tests/test_skill_contract.py
+python3 tests/prompt-engineer/test_skill_contract.py
 ```
 
 The tests verify:
 
 - required files and frontmatter
+- that repository tests stay outside the installable skill package
 - reference links
 - ordinary vs agent meta prompt separation
 - route vocabulary alignment
